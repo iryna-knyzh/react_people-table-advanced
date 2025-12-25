@@ -38,6 +38,22 @@ function prepareVisiblePeople(
     );
   }
 
+  const centuries = searchParams.getAll('centuries') || [];
+
+  if (centuries.length) {
+    visiblePeople = visiblePeople.filter((person: Person) => {
+      for (const century of centuries) {
+        const y = +century * 100;
+
+        if (person.born > y && person.born < y + 100) {
+          return true;
+        }
+      }
+
+      return false;
+    });
+  }
+
   const sort = searchParams.get('sort') || '';
   const order = searchParams.get('order') || '';
 
@@ -66,7 +82,7 @@ function prepareVisiblePeople(
 
 export const PeopleTable: React.FC<Props> = ({ people }) => {
   const { slug } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const sort = searchParams.get('sort') || '';
   const order = searchParams.get('order') || '';
 

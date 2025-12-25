@@ -14,7 +14,7 @@ export const PeopleFilters = () => {
     (start + i).toString(),
   );
 
-  function setSearchWith(params: any) {
+  function setSearchWith(params) {
     const search = getSearchWith(searchParams, params);
 
     setSearchParams(search);
