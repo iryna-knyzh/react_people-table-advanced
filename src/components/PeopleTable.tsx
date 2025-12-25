@@ -17,7 +17,7 @@ function prepareVisiblePeople(
   people: Person[],
   searchParams: URLSearchParams,
 ): Person[] {
-  let visiblePeople = people;
+  let visiblePeople = [...people];
   const normalizedQuery = searchParams.get('query')?.trim().toLowerCase();
 
   if (normalizedQuery) {
@@ -45,7 +45,7 @@ function prepareVisiblePeople(
       for (const century of centuries) {
         const y = +century * 100;
 
-        if (person.born > y && person.born < y + 100) {
+        if (person.born > y && person.born <= y + 100) {
           return true;
         }
       }
@@ -74,6 +74,8 @@ function prepareVisiblePeople(
           return p1[sort] - p2[sort];
         }
       }
+
+      return 0;
     });
   }
 
